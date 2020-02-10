@@ -29,7 +29,7 @@ public class LoginLogic {
 
 
 		//受験者一覧取得
-		dao.selectAllexaminee(examineeList);
+		dao.selectAllExamineeNameAndPass(examineeList);
 	}
 
 	/**
@@ -37,8 +37,11 @@ public class LoginLogic {
 	 * @return
 	 */
 	public String loginProcess() {
-		//何も選択されてないときは空欄を表示
-		request.setAttribute("result", "");
+
+		//loginの選択がされてないなら戻る
+		if (!"ログイン".equals(request.getParameter("action"))) {
+			return "/";
+		}
 
 		//ログイン成功時したらメインへ移動
 		if (this.authenticationUserAndPass()) {
@@ -54,7 +57,12 @@ public class LoginLogic {
 	 * 新規登録処理
 	 */
 	public void signupProcess() {
-		System.out.println("signupProcess");
+
+		//新規登録されてないなら戻る
+		if (!"新規登録".equals(request.getParameter("action"))) {
+			return;
+		}
+
 
 		//既存ユーザ名と一致するかチェック
 		if (this.authenticationUser()) {
@@ -63,7 +71,7 @@ public class LoginLogic {
 
 		} else {
 			//登録された全受験者と名前が一致しなければ新規登録する
-			dao.insertExaminee(this.examinee);
+			dao.insertNewExaminee(this.examinee);
 			request.setAttribute("result", this.examinee.getName()+"を新規登録しました");
 		}
 	}
@@ -89,7 +97,6 @@ public class LoginLogic {
 		//登録された全受験者と名前＆passが一致したらtrueを返す
 		for (Examinees examinees : examineeList) {
 			if (examinees.getName().equals(this.examinee.getName())) {
-				System.out.println("authenticationUser:true");
 				return true;
 			}
 		}

@@ -34,11 +34,11 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-
-
 		//ろぐいんしているか確認するためセッションスコープからユーザ情報を取得
 		HttpSession session = request.getSession();
 		Examinees loginUser = (Examinees) session.getAttribute("loginExaminee");
+
+		System.out.println("Main:doGet:"+loginUser);
 
 		if (loginUser == null) {
 			//リダイレクト
@@ -57,10 +57,8 @@ public class Main extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String text = request.getParameter("text");
 
-
 		//メイン画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 		dispatcher.forward(request, response);
-
 	}
 }

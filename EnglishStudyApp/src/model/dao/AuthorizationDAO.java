@@ -17,15 +17,12 @@ import model.entity.Examinees;
  * m_examineeテーブルのDAOです。
  */
 public class AuthorizationDAO {
+
 	/**
-	 * すべての従業員のリストを返します。
-	 * @return 従業員のリスト
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
+	 * 全ユーザの名前とパスワードを取得
+	 * @param examineeList
 	 */
-	//public List<Examinees> selectAllexaminee(List<Examinees> examineeList) throws SQLException, ClassNotFoundException {
-	public void selectAllexaminee(List<Examinees> examineeList)  {
-		//List<Examinees> examineeList = new ArrayList<Examinees>();
+	public void selectAllExamineeNameAndPass(List<Examinees> examineeList)  {
 
 		// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
 		try (Connection con = ConnectionManager.getConnection();
@@ -44,10 +41,32 @@ public class AuthorizationDAO {
 		catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		//return examineeList;
 	}
 
-	public void insertExaminee(Examinees examinee){
+	public void selectAllExamineeScore(List<Examinees> examineeList)  {
+
+		// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
+		try (Connection con = ConnectionManager.getConnection();
+				Statement stmt = con.createStatement();
+				ResultSet res = stmt.executeQuery("SELECT t1.examinee_id, t2.examinee_name, t1.score, t1.recordedtime  FROM m_score t1 INNER JOIN m_examinee t2 ON t1.examinee_id = t2.examinee_id ORDER BY score DESC;")) {
+
+			int ranking = 1;
+			// 結果の操作
+			while (res.next()) {
+				Examinees examinee = new Examinees();
+				examinee.setRankingNumber(ranking);
+				examinee.setName(res.getString("examinee_name"));
+				examinee.setScore(res.getInt("score"));
+				examinee.setTimestamp(res.getTimestamp("recordedtime"));
+				examineeList.add(examinee);
+				ranking++;
+			}
+		}
+		catch(SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	public void insertNewExaminee(Examinees examinee){
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(
 						"INSERT INTO m_examinee(examinee_name, examinee_pass) VALUES(?,?);")){
