@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import model.entity.Examinees;
@@ -24,9 +23,9 @@ public class AuthorizationDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public List<Examinees> selectAllexaminee() throws SQLException, ClassNotFoundException {
-
-		List<Examinees> examineeList = new ArrayList<Examinees>();
+	//public List<Examinees> selectAllexaminee(List<Examinees> examineeList) throws SQLException, ClassNotFoundException {
+	public void selectAllexaminee(List<Examinees> examineeList)  {
+		//List<Examinees> examineeList = new ArrayList<Examinees>();
 
 		// データベースへの接続の取得、Statementの取得、SQLステートメントの実行
 		try (Connection con = ConnectionManager.getConnection();
@@ -40,13 +39,15 @@ public class AuthorizationDAO {
 				examinee.setPass(res.getString("examinee_pass"));
 				examinee.setTimestamp(res.getTimestamp("createdtime"));
 				examineeList.add(examinee);
-
 			}
 		}
-		return examineeList;
+		catch(SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//return examineeList;
 	}
 
-	public void insertExaminee(Examinees examinee)throws SQLException, ClassNotFoundException{
+	public void insertExaminee(Examinees examinee){
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(
 						"INSERT INTO m_examinee(examinee_name, examinee_pass) VALUES(?,?);")){
@@ -55,6 +56,8 @@ public class AuthorizationDAO {
 			pstmt.setString(2, examinee.getPass());
 
 			pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -39,12 +39,10 @@ public class Questions extends HttpServlet {
 
         //Resultの選択がされたならResultViewを飛ばす
         if("Result".equals(request.getParameter("action"))) {
-        	System.out.println("aaaa");
     		dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/resultView.jsp");
 
         }else {
-        	System.out.println("bbbb");
-        }
+           }
 
 
         try {

@@ -16,5 +16,6 @@
 <h1>Main Page</h1>
 	<p>ようこそ<%=loginExaminees.getName() %>さん</p>
 	<a href = "/EnglishStudyApp/Questions">問題を解く</a>
+		<a href = "/EnglishStudyApp">ログイン画面に戻る</a>
 </body>
 </html>

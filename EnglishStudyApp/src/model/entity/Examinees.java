@@ -10,7 +10,7 @@ public class Examinees {
 	private String Score;
 	private String pass;
 	private Timestamp timestamp;
-
+	
 
 	public Examinees() {
 		super();

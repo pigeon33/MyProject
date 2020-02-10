@@ -33,6 +33,15 @@ public class Login extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
+		if(name.isEmpty()) {
+			//入力されたユーザ名が空ならreturn
+			request.setAttribute("result", "ユーザ名が入力されておりません");
+			dispatcher = request.getRequestDispatcher(str);
+			dispatcher.forward(request, response);
+			return;
+		}
+
+
 		//examineeインスタンスの生成
 		Examinees examinee = new Examinees(name, pass);
 
@@ -41,31 +50,18 @@ public class Login extends HttpServlet {
 		session.setAttribute("loginExaminees", examinee);
 
 		//ログイン処理クラスをインスタンス化
-		LoginLogic loginLogic = new LoginLogic();
-
-		//何も選択されてないときは空欄を表示
-		request.setAttribute("result", "");
-		System.out.println("test");
+		LoginLogic loginLogic = new LoginLogic(request,examinee);
 
 		//loginの選択がされたならログイン処理
 		if ("ログイン".equals(request.getParameter("action"))) {
-			//ログイン処理
-			boolean isLogin = loginLogic.execute(examinee);
-
-			//ログイン成功時の処理
-			if (isLogin) {
-				str = "/WEB-INF/jsp/main.jsp";
-			}
-			//ログイン失敗したらログイン失敗をリクエストスコープにセット
-			else {
-				request.setAttribute("result", "ログインに失敗しました");
-			}
+			 str = loginLogic.loginProcess();
 		}
 
 		//新規登録処理
 		if ("新規登録".equals(request.getParameter("action"))) {
-			request.setAttribute("result", "新規登録しました");
+			loginLogic.signupProcess();
 		}
+
 		dispatcher = request.getRequestDispatcher(str);
 		dispatcher.forward(request, response);
 	}
