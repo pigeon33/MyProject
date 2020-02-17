@@ -25,7 +25,6 @@ public class Main extends HttpServlet {
 	 */
 	public Main() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -34,31 +33,33 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		System.out.println("Main:doGet");
 		//ろぐいんしているか確認するためセッションスコープからユーザ情報を取得
 		HttpSession session = request.getSession();
 		Examinees loginUser = (Examinees) session.getAttribute("loginExaminee");
 
-		System.out.println("Main:doGet:"+loginUser);
-
 		if (loginUser == null) {
-			//リダイレクト
+			//ログインしてないならログイン画面へ
 			response.sendRedirect("/EnglishStudyApp/");
 		} else {
-			//フォワード
+			//ログインしているならメイン画面へ
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 			dispatcher.forward(request, response);
 		}
+
+		//問題番号を０で初期化
+		session.setAttribute("questionNum", 0);
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		//リクエストパラメータの取得
-		request.setCharacterEncoding("UTF-8");
-		String text = request.getParameter("text");
-
-		//メイン画面にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
-		dispatcher.forward(request, response);
-	}
+//	@Override
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException {
+//		//リクエストパラメータの取得
+//		request.setCharacterEncoding("UTF-8");
+//		String text = request.getParameter("text");
+//
+//		//メイン画面にフォワード
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
+//		dispatcher.forward(request, response);
+//	}
 }

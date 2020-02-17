@@ -15,8 +15,18 @@
 <body>
 <h1>Main Page</h1>
 	<p>ようこそ<%=loginExaminee.getName() %>さん</p>
-	<a href = "/EnglishStudyApp/Questions">問題を解く</a>
-	<a href = "/EnglishStudyApp/resultView">ランキングを見る</a>
-	<a href = "/EnglishStudyApp">ログイン画面に戻る</a>
+	<form action="/EnglishStudyApp/Questions" method="get">
+	<p>
+	<select name="TotalQuestionNum">
+		<option value="5">５問</option>
+		<option value="10">１０問</option>
+		<option value="15">１５問</option>
+	</select>
+	<input type="submit" name="action" value="問題を解く">
+	<!-- <a href = "/EnglishStudyApp/Questions?=TotalQuestionNum">問題を解く</a> -->
+	</form>
+	</p>
+	<p><a href = "/EnglishStudyApp/resultView">ランキングを見る</a></p>
+	<p><a href = "/EnglishStudyApp">ログイン画面に戻る</a></p>
 </body>
 </html>

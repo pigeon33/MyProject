@@ -1,4 +1,4 @@
-package model.entity;
+package model.logic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import model.dao.AuthorizationDAO;
+import model.entity.Examinees;
 
 public class LoginLogic {
 	private HttpServletRequest request;
@@ -26,8 +27,6 @@ public class LoginLogic {
 		this.request = request;
 		this.examinee = examinee;
 
-
-
 		//受験者一覧取得
 		dao.selectAllExamineeNameAndPass(examineeList);
 	}
@@ -42,6 +41,7 @@ public class LoginLogic {
 		if (!"ログイン".equals(request.getParameter("action"))) {
 			return "/";
 		}
+		System.out.println("LoginLogic:loginProcess:"+request.getParameter("action"));
 
 		//ログイン成功時したらメインへ移動
 		if (this.authenticationUserAndPass()) {
@@ -66,7 +66,7 @@ public class LoginLogic {
 
 		//既存ユーザ名と一致するかチェック
 		if (this.authenticationUser()) {
-			//登録された全受験者と名前が一致しなければ登録しない
+			//登録された全受験者と名前が一すれば登録しない
 			request.setAttribute("result", this.examinee.getName()+"はすでに登録されているユーザ名です");
 
 		} else {
@@ -94,7 +94,7 @@ public class LoginLogic {
 
 	private boolean authenticationUser() {
 
-		//登録された全受験者と名前＆passが一致したらtrueを返す
+		//登録された全受験者と名前が一致したらtrueを返す
 		for (Examinees examinees : examineeList) {
 			if (examinees.getName().equals(this.examinee.getName())) {
 				return true;
@@ -102,6 +102,4 @@ public class LoginLogic {
 		}
 		return false;
 	}
-
-
 }

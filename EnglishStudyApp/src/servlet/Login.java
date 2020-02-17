@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.entity.Examinees;
-import model.entity.LoginLogic;
+import model.logic.LoginLogic;
 
 /**
  * Servlet implementation class Login
@@ -25,6 +25,8 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+
 		//リクエストパラメーターの取得
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
@@ -42,20 +44,20 @@ public class Login extends HttpServlet {
 			return;
 		}
 
-		//何も選択されてないときは空欄を表示
-		request.setAttribute("result", "");
+		//何も選択されてないときは説明を表示
+		request.setAttribute("result", "初めての場合は、ユーザ名とパスワードを入力して新規登録ボタンを押してください。");
 
 		//examineeインスタンスの生成
 		Examinees examinee = new Examinees(name, pass);
 
 		//examinee情報をセッションスコープに保存
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
 		session.setAttribute("loginExaminee", examinee);
 
 		//ログイン処理クラスをインスタンス化
 		LoginLogic loginLogic = new LoginLogic(request,examinee);
 
-		//loginの選択がされたならログイン処理
+		//ログイン処理
 		 str = loginLogic.loginProcess();
 
 		//新規登録処理
@@ -66,8 +68,7 @@ public class Login extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
 	}
-
 }
