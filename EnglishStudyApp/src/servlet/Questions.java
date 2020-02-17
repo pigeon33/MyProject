@@ -44,22 +44,21 @@ public class Questions extends HttpServlet {
 		//URLをquestions画面にセット
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/questions.jsp");
 
-
-
 		//セッションスコープ取得
 		HttpSession session = request.getSession(false);
 
 		//メイン画面から飛んだ時のみ問題文の初期化
 		if(request.getParameter("action")!=null) {
 			questionLogic.init(questionList);
-			//リクエストスコープからセッションスコープへ問題数をセット
-			session.setAttribute("TotalQuestionNum", request.getParameter(request.getParameter("TotalQuestionNum")));
+			int i = Integer.parseInt(request.getParameter("TotalQuestionNum"));
+			//リクエストスコープからセッションスコープへ最大問題番号をセット
+			session.setAttribute("TotalQuestionNum", i);
 		}
 
-		//セッションスコープに、問題番号をセット
+		//リクエストスコープに、問題をセット
 		request.setAttribute("question", questionList.get((int) session.getAttribute("questionNum")));
 
-
+		System.out.println("Questions:doGet:session.getAttribute(\"TotalQuestionNum\"):"+session.getAttribute("TotalQuestionNum"));
 
         //Resultの選択がされたならResultViewを飛ばす
         if("Result".equals(request.getParameter("action"))) {
@@ -78,12 +77,9 @@ public class Questions extends HttpServlet {
 
 		request.setCharacterEncoding("utf-8");
 
-		System.out.println("Questions:doPost:request.getParameter(\"TotalQuestionNum\"):"+request.getParameter("TotalQuestionNum"));
-
 		//次の問題と前の問題処理
 		questionLogic.nextQuestion(request);
 		questionLogic.previousQuestion(request);
-
 
 		doGet(request, response);
 	}

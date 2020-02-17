@@ -10,9 +10,12 @@
 	<form action="/EnglishStudyApp/Questions" method="post">
 		<%
 			Question question = (Question) request.getAttribute("question");
-		%>
+			int currentQuestionNum = (Integer)(session.getAttribute("questionNum"));
+			int maxQuestionNum = (Integer)(session.getAttribute("TotalQuestionNum"));
 
-		<h1>Question<%=(Integer)(session.getAttribute("questionNum"))+1%></h1>
+			%>
+
+		<h1>Question<%=currentQuestionNum+1%></h1>
 		<p><%=question.getQuestion()%></p>
 		<p>	<input type="radio" name="radiobutton" value="a">
 			<%=question.getChoiceA()%></p>
@@ -23,7 +26,7 @@
 		<p>	<input type="radio" name="radiobutton" value="d">
 			<%=question.getChoiceD()%></p>
 		<p>
-		<%if((Integer)(session.getAttribute("questionNum"))>0){%>
+		<%if(currentQuestionNum>0){%>
 			<input type="submit" name="actionInQuestion" value="前の問題">
 		<%} else {%>
 			<input type="submit" name="actionInQuestion" value="前の問題" disabled>
@@ -31,7 +34,7 @@
 
 		<%
 		/* if((Integer)(session.getAttribute("questionNum"))<=(Integer)(session.getAttribute("TotalQuestionNum"))) */
-		if((Integer)(session.getAttribute("questionNum"))<=3)
+		if(currentQuestionNum < maxQuestionNum-1)
 		{%>
 			<input type="submit" name="actionInQuestion" value="次の問題">
 		<%} else {%>
