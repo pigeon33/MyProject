@@ -16,7 +16,7 @@ import model.entity.Examinees;
 /**
  * m_examineeテーブルのDAOです。
  */
-public class AuthorizationDAO {
+public class LoginDAO {
 
 	/**
 	 * 全ユーザの名前とパスワードを取得

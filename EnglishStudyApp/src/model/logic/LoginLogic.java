@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import model.dao.AuthorizationDAO;
+import model.dao.LoginDAO;
 import model.entity.Examinees;
 
 public class LoginLogic {
@@ -16,7 +16,7 @@ public class LoginLogic {
 	List<Examinees> examineeList = new ArrayList<Examinees>();
 
 	// DAOの生成
-	AuthorizationDAO dao = new AuthorizationDAO();
+	LoginDAO dao = new LoginDAO();
 
 	/**
 	 * コンストラクラー
