@@ -16,13 +16,13 @@
 
 		<h1>Question<%=currentQuestionNum+1%></h1>
 		<p><%=question.getQuestion()%></p>
-		<p>	<input type="radio" name="radiobutton" value="a" checked>
+		<p>	<input type="radio" name="radiobutton" value="A" checked>
 			<%=question.getChoiceA()%></p>
-		<p>	<input type="radio" name="radiobutton" value="b">
+		<p>	<input type="radio" name="radiobutton" value="B">
 			<%=question.getChoiceB()%></p>
-		<p>	<input type="radio" name="radiobutton" value="c">
+		<p>	<input type="radio" name="radiobutton" value="C">
 			<%=question.getChoiceC()%></p>
-		<p>	<input type="radio" name="radiobutton" value="d">
+		<p>	<input type="radio" name="radiobutton" value="D">
 			<%=question.getChoiceD()%></p>
 		<p>
 		<%if(currentQuestionNum>0){%>
