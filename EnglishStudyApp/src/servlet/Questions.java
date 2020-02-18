@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import model.entity.Question;
 import model.logic.QuestionLogic;
-import model.logic.ResultViewLogic;
 
 /**
  * Servlet implementation class questions
@@ -31,14 +30,13 @@ public class Questions extends HttpServlet {
      */
     public Questions() {
         super();
-        // TODO Auto-generated constructor stub
+        System.out.println("Question:Constructor");
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Questions:doGet:request.getParameter(\"TotalQuestionNum\"):"+request.getParameter("TotalQuestionNum"));
 
 		request.setCharacterEncoding("UTF-8");
 		//URLをquestions画面にセット
@@ -49,38 +47,30 @@ public class Questions extends HttpServlet {
 
 		//メイン画面から飛んだ時のみ問題文の初期化
 		if(request.getParameter("action")!=null) {
+			//問題を生成
 			questionLogic.init(questionList);
-			int i = Integer.parseInt(request.getParameter("TotalQuestionNum"));
+			//現在の問題番号を０で初期化
+			session.setAttribute("questionNum", 0);
 			//リクエストスコープからセッションスコープへ最大問題番号をセット
-			session.setAttribute("TotalQuestionNum", i);
+			session.setAttribute("TotalQuestionNum", Integer.parseInt(request.getParameter("TotalQuestionNum")));
 		}
-
-		//リクエストスコープに、問題をセット
-		request.setAttribute("question", questionList.get((int) session.getAttribute("questionNum")));
-
-		System.out.println("Questions:doGet:session.getAttribute(\"TotalQuestionNum\"):"+session.getAttribute("TotalQuestionNum"));
-
-        //Resultの選択がされたならResultViewを飛ばす
-        if("Result".equals(request.getParameter("action"))) {
-    		ResultViewLogic resultviewlogic = new ResultViewLogic();
-
-        	dispatcher = request.getRequestDispatcher("resultView");
-        }
-
-		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("utf-8");
 
 		//次の問題と前の問題処理
 		questionLogic.nextQuestion(request);
 		questionLogic.previousQuestion(request);
 
-		doGet(request, response);
+		//リクエストスコープに、問題をセット
+		request.setAttribute("question", questionList.get((int) session.getAttribute("questionNum")));
+
+
+        //"結果表示"の選択がされたならResultViewを飛ばす
+//        if("結果表示".equals(request.getParameter("actionInQuestion"))) {
+//    		ResultViewLogic resultViewLogic = new ResultViewLogic();
+//    		System.out.println("Qusestions:doGet:\"結果表示\"");
+//    		resultViewLogic.init();
+//        	//dispatcher = request.getRequestDispatcher("/resultView");
+//        }
+
+		dispatcher.forward(request, response);
 	}
 }

@@ -19,7 +19,6 @@ import model.entity.Examinees;
 public class Main extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -46,20 +45,5 @@ public class Main extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 			dispatcher.forward(request, response);
 		}
-
-		//問題番号を０で初期化
-		session.setAttribute("questionNum", 0);
 	}
-
-//	@Override
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException {
-//		//リクエストパラメータの取得
-//		request.setCharacterEncoding("UTF-8");
-//		String text = request.getParameter("text");
-//
-//		//メイン画面にフォワード
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
-//		dispatcher.forward(request, response);
-//	}
 }

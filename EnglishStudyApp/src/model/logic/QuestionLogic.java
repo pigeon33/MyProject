@@ -32,10 +32,11 @@ public class QuestionLogic {
 		HttpSession session = request.getSession(false);
 		int num = (int) session.getAttribute("questionNum");
 		session.setAttribute("questionNum", ++num);
+
 	}
 	public void previousQuestion(HttpServletRequest request) {
 		//前の問題が選択されてなければ戻る
-		if (!"前の問題".equals(request.getParameter("actionInQuestion"))) {
+		if (!("前の問題".equals(request.getParameter("actionInQuestion")))) {
 			return;
 		}
 
@@ -43,6 +44,7 @@ public class QuestionLogic {
 		HttpSession session = request.getSession(false);
 		int num = (int) session.getAttribute("questionNum");
 		session.setAttribute("questionNum", --num);
+
 	}
 	public void answerAndCommentary(HttpServletRequest request) {
 		//回答解説を見るが選択されてなければ戻る
