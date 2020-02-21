@@ -28,7 +28,6 @@ public class Login extends HttpServlet {
 
 
 		//リクエストパラメーターの取得
-		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
 		String pass = request.getParameter("pass");
 		String str = "/";
@@ -50,18 +49,16 @@ public class Login extends HttpServlet {
 		//examineeインスタンスの生成
 		Examinees examinee = new Examinees(name, pass);
 
+
+		//ログイン処理クラスをインスタンス化
+		LoginLogic loginLogic = new LoginLogic(request, examinee);
+
+		//ログイン処理
+		 str = loginLogic.loginController();
+
 		//examinee情報をセッションスコープに保存
 		HttpSession session = request.getSession(true);
 		session.setAttribute("loginExaminee", examinee);
-
-		//ログイン処理クラスをインスタンス化
-		LoginLogic loginLogic = new LoginLogic(request,examinee);
-
-		//ログイン処理
-		 str = loginLogic.loginProcess();
-
-		//新規登録処理
-		loginLogic.signupProcess();
 
 		dispatcher = request.getRequestDispatcher(str);
 		dispatcher.forward(request, response);

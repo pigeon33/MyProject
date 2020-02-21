@@ -13,7 +13,6 @@
 <title>English Study</title>
 </head>
 <body>
-<h1>Main Page</h1>
 	<p>ようこそ<%=loginExaminee.getName() %>さん</p>
 		<form action="/EnglishStudyApp/Questions" method="get">
 	<p>
@@ -22,14 +21,19 @@
 			<option value="10">１０問</option>
 			<option value="15">１５問</option>
 		</select>
-		<input type="submit" name="action" value="問題を解く">
+		<!-- <input type="submit" name="action" value="問題を解く"> -->
+		<button type="submit" name="action" value="問題を解く">問題を解く</button>
 		</form>
 	</p>
 	<p>
 		<form action="/EnglishStudyApp/Ranking" method="get">
-		<input type="submit" name="action" value="ランキングを見る">
+		<button type="submit" name="action" value="履歴を見る">履歴を見る</button>
+		<button type="submit" name="action" value="ランキングを見る">ランキングを見る</button>
 		</form>
 	</p>
-	<p><a href = "/EnglishStudyApp">ログイン画面に戻る</a></p>
+	<!-- <p><a href = "/EnglishStudyApp">ログイン画面に戻る</a></p> -->
+	<form action = "/EnglishStudyApp/Logout" method="get">
+		<button type="submit" name="action" >ログアウトする</button>
+	</form>
 </body>
 </html>

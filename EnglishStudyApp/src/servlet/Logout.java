@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/Logout")
 public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,10 +33,11 @@ public class Logout extends HttpServlet {
 		//セッションスコープを破棄
 		HttpSession session = request.getSession();
 		session.invalidate();
-		
+
 		//ログアウト画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/logout.jsp");
 		dispatcher.forward(request,response);
+//		response.sendRedirect("/WEB-INF/jsp/logout.jsp");
 	}
 
 }

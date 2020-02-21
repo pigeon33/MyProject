@@ -19,6 +19,7 @@ import model.entity.Examinees;
 public class Main extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -32,7 +33,6 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("Main:doGet");
 		//ろぐいんしているか確認するためセッションスコープからユーザ情報を取得
 		HttpSession session = request.getSession();
 		Examinees loginUser = (Examinees) session.getAttribute("loginExaminee");

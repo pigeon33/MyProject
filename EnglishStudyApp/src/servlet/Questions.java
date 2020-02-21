@@ -32,28 +32,16 @@ public class Questions extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		//URLをquestions画面にセット
-		String url="/WEB-INF/jsp/questions.jsp";
-
-		request.setCharacterEncoding("UTF-8");
+//		QuestionLogic questionLogic = new QuestionLogic();
 
 		//questionLogicクラスにrequest情報をセット
 		questionLogic.setRequest(request);
 
-		//メイン画面から飛んだ時のみ問題文の初期化
-		if(request.getParameter("action")!=null) {questionLogic.init();}
-
-		System.out.println("Questions:doGet:request.getParameter(\"radiobutton\"):"+request.getParameter("radiobutton"));
 		//次の問題と前の問題処理
-		questionLogic.QuestionController();
-
-        //"結果表示"の選択がされたならResultViewを飛ばす
-        if("結果表示".equals(request.getParameter("actionInQuestion"))) {
-        	url="/resultView";
-        }
+		String url = questionLogic.QuestionController();
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
+
 }

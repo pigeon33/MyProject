@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>どこつぶ</title>
+<title>English Study</title>
 </head>
 <body>
-<h1>どこつぶログアウト</h1>
+<h1>ログアウト</h1>
 <p>ログアウトしました</p>
-<a href="/EnglishStudyApp">トップへ</a>
+<a href="/EnglishStudyApp">ログイン画面へ戻る</a>
 </body>
 </html>

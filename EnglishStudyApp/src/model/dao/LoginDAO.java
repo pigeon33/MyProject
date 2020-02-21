@@ -32,6 +32,7 @@ public class LoginDAO {
 			// 結果の操作
 			while (res.next()) {
 				Examinees examinee = new Examinees();
+				examinee.setId(Integer.parseInt(res.getString("examinee_id")));
 				examinee.setName(res.getString("examinee_name"));
 				examinee.setPass(res.getString("examinee_pass"));
 				examinee.setTimestamp(res.getTimestamp("createdtime"));

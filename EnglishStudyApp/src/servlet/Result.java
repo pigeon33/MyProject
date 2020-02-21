@@ -9,30 +9,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.logic.ResultLogic;
+
 /**
  * Servlet implementation class resultView
  */
-@WebServlet("/resultView")
+@WebServlet("/Result")
 public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	//ResultLogic resultLogic = new ResultLogic();;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Result() {
         super();
-        // TODO Auto-generated constructor stub
+        System.out.println("Result:Constructor");
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//結果表示処理
+		ResultLogic resultLogic = new ResultLogic();
+		String url = resultLogic.resultController(request);
 
-		request.setCharacterEncoding("UTF-8");
-
-		//resultView画面にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/resultView.jsp");
+		//フォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
 	}
+
 }

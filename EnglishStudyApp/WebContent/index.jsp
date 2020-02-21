@@ -15,6 +15,8 @@
 <input type="submit" name="action" value="新規登録">
 <%if(request.getAttribute("result")!=null){%>
 	<p><%=request.getAttribute("result")%></p>
+	<%} else {%>
+	<p>初めての場合は、ユーザ名とパスワードを入力して新規登録ボタンを押してください。</p>
 	<%}%>
 </form>
 </body>

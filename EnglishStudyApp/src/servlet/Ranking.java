@@ -33,12 +33,10 @@ public class Ranking extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Ranking:doGet:");
 
-		request.setCharacterEncoding("UTF-8");
-
 		//RankingLogicの初期化
 		RankingLogic rankingLogic = new RankingLogic();
 
-		// リクエストスコープへの属性の設定
+		// リクエストスコープへ点数リストをセット
 		request.setAttribute("examineeScoreList", rankingLogic.getExamineeScoreList());
 
 		//URLをRanking画面にセット

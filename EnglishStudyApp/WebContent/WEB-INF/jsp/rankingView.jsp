@@ -11,7 +11,7 @@
 	<% List<Examinees> examineeScoreList = (List)request.getAttribute("examineeScoreList");%>
 
 <h1>Ranking</h1>
-	<table border="5" rules="all">
+	<table border="1">
 		<tr>
 			<th>Number</th>
 			<th>Name</th>

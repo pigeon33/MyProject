@@ -31,17 +31,19 @@ public class LoginLogic {
 		dao.selectAllExamineeNameAndPass(examineeList);
 	}
 
+
 	/**
 	 * ログイン処理
 	 * @return
 	 */
-	public String loginProcess() {
+	public String loginController() {
+		//新規登録処理
+		signupProcess();
 
 		//loginの選択がされてないなら戻る
 		if (!"ログイン".equals(request.getParameter("action"))) {
 			return "/";
 		}
-		System.out.println("LoginLogic:loginProcess:"+request.getParameter("action"));
 
 		//ログイン成功時したらメインへ移動
 		if (this.authenticationUserAndPass()) {
@@ -56,7 +58,7 @@ public class LoginLogic {
 	/**
 	 * 新規登録処理
 	 */
-	public void signupProcess() {
+	private void signupProcess() {
 
 		//新規登録されてないなら戻る
 		if (!"新規登録".equals(request.getParameter("action"))) {
@@ -86,6 +88,8 @@ public class LoginLogic {
 		for (Examinees examinees : examineeList) {
 			if (examinees.getName().equals(this.examinee.getName())
 					&& examinees.getPass().equals(this.examinee.getPass())) {
+				//examineeに自分のＩＤをセット
+				examinee.setId(examinees.getId());
 				return true;
 			}
 		}

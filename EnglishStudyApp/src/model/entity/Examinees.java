@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Examinees {
 
-	private int entryNumber;//登録番号
+	private int id;//登録番号
 	private int rankingNumber;//ランキング
 	private String Name;
 	private int Score;
@@ -21,8 +21,8 @@ public class Examinees {
 		Name = name;
 		this.pass = pass;
 	}
-	public int getEntryNumber() {return entryNumber;}
-	public void setEntryNumber(int entryNumber) {this.entryNumber = entryNumber;}
+	public int getId() {return this.id;}
+	public void setId(int id) {this.id = id;}
 
 	public String getName() {return Name;}
 	public void setName(String name) {	Name = name;}

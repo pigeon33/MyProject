@@ -17,10 +17,44 @@ public class QuestionLogic {
 	private List<Answer> answerList = new ArrayList<Answer>();//回答格納用リスト
 
 	/**
+	 * 問題の設定メソッド
+	 */
+	public String QuestionController() {
+
+		//メイン画面から飛んだ時のみ問題文の初期化
+		if(request.getParameter("action")!=null) {
+			System.out.println("QUestions:doGet:questionLogic.init()");
+			init();
+		}
+
+		if("メイン".equals(request.getParameter("actionInQuestion"))) {
+			System.out.println("QUestions:doGet:questionLogic.init()");
+			return "/WEB-INF/jsp/main.jsp";
+		}
+
+		//受験者の回答をチェックする
+		setAnswer();
+
+		//前後の移動処理
+		nextQuestion();
+		previousQuestion();
+
+		//リクエストスコープに、次の画面に表示する問題をセット
+		this.request.setAttribute("question", questionList.get((int) this.session.getAttribute("questionNum")));
+
+	       //"結果表示"の選択がされたならResultViewを飛ばす
+        if("結果表示".equals(request.getParameter("actionInQuestion"))) {
+        	return "/Result";
+        }
+
+		//URLをquestions画面にセット
+		return "/WEB-INF/jsp/questions.jsp";
+	}
+	/**
 	 * 問題の初期化メソッド
 	 * @param questionList
 	 */
-	public void init() {
+	private void init() {
 		// DAOの生成
 		QuestionDAO dao = new QuestionDAO();
 
@@ -34,12 +68,15 @@ public class QuestionLogic {
 		this.session.setAttribute("questionNum", 0);
 		//リクエストスコープからセッションスコープへ最大問題番号をセット
 		this.session.setAttribute("TotalQuestionNum", Integer.parseInt(request.getParameter("TotalQuestionNum")));
+		//ステータスの初期化
+		this.session.removeAttribute("status");
 	}
+	private void setAnswer() {
 
-	/**
-	 * 問題の設定メソッド
-	 */
-	public void QuestionController() {
+		//回答解説を見るモードならreturn
+		if("checkAnswer".equals(this.session.getAttribute("status"))) {
+			return;
+		}
 
 		int currentQuestionNum = (int)this.session.getAttribute("questionNum");
 
@@ -64,11 +101,6 @@ public class QuestionLogic {
 		//session scopreに回答リストをセット
 		session.setAttribute("answerList", answerList);
 
-		//前後の移動処理
-		nextQuestion();
-		previousQuestion();
-		//リクエストスコープに、次の画面に表示する問題をセット
-		this.request.setAttribute("question", questionList.get((int) this.session.getAttribute("questionNum")));
 	}
 	private void nextQuestion() {
 		//次の問題が選択されてなければ戻る
@@ -89,14 +121,6 @@ public class QuestionLogic {
 		//前の問題が押されたら、セッションスコープに問題番号を減産
 		int num = (int) this.session.getAttribute("questionNum");
 		this.session.setAttribute("questionNum", --num);
-	}
-
-
-	public void answerAndCommentary() {
-		//回答解説を見るが選択されてなければ戻る
-		if (!"回答解説を見る".equals(this.request.getParameter("actionInQuestion"))) {
-			return;
-		}
 	}
 
 	/**
