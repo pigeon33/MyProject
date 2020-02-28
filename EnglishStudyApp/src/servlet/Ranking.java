@@ -34,10 +34,8 @@ public class Ranking extends HttpServlet {
 		System.out.println("Ranking:doGet:");
 
 		//RankingLogicの初期化
-		RankingLogic rankingLogic = new RankingLogic();
-
-		// リクエストスコープへ点数リストをセット
-		request.setAttribute("examineeScoreList", rankingLogic.getExamineeScoreList());
+		RankingLogic rankingLogic = new RankingLogic(request);
+		rankingLogic.rankingController();
 
 		//URLをRanking画面にセット
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/rankingView.jsp");

@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import model.dao.ResultDAO;
-import model.entity.Answer;
 import model.entity.Examinees;
+import model.entity.Question;
 
 public class ResultLogic {
 
@@ -39,11 +39,11 @@ public class ResultLogic {
 	}
 
 	private void culcScore() {
-		List<Answer> answerList = (List<Answer>) session.getAttribute("answerList");
+		List<Question> questionList = (List<Question>) session.getAttribute("questionList");
 
 		//点数計算処理
 		int score = 0;
-		for (Answer answer : answerList) {
+		for (Question answer : questionList) {
 			if ("正解".equals(answer.getJudge())) {
 				score = score + 10;
 			}

@@ -18,7 +18,7 @@ import model.logic.QuestionLogic;
 public class Questions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//試験者一覧保存用リストの作成
-	private QuestionLogic questionLogic = new QuestionLogic();
+	//private QuestionLogic questionLogic = new QuestionLogic();
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,13 +32,10 @@ public class Questions extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		QuestionLogic questionLogic = new QuestionLogic();
+		QuestionLogic questionLogic = new QuestionLogic();
 
-		//questionLogicクラスにrequest情報をセット
-		questionLogic.setRequest(request);
-
-		//次の問題と前の問題処理
-		String url = questionLogic.QuestionController();
+		//問題処理
+		String url = questionLogic.QuestionController(request);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

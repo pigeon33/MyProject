@@ -4,42 +4,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Ranking</title>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
+	<div class="container">
+		<div class="jumbotron">
 	<a href="/EnglishStudyApp/Main">メイン画面に戻る</a>
 	<%
-		List<Answer> answerList = (List) session.getAttribute("answerList");
+		List<Question> questionList = (List) session.getAttribute("questionList");
 		Examinees examinee = (Examinees) session.getAttribute("loginExaminee");
 	%>
-	<h1><%=examinee.getName()%>さんのスコアは<%=examinee.getScore() %>点です</h1>
+	<h4><%=examinee.getName()%>さんのスコアは<%=examinee.getScore() %>点です</h4>
 
-	<table border="1">
+	<table class="table table-hover">
+		<thead>
 		<tr>
-			<th>問題番号</th>
-			<th>回答</th>
-			<th>正解</th>
-			<th>合否判定</th>
+			<th scope="col">問題番号</th>
+			<th scope="col">回答</th>
+			<th scope="col">正解</th>
+			<th scope="col">合否判定</th>
 		</tr>
+		</thead>
 		<%
-			for (Answer answers : answerList) {
+			for (Question answers : questionList) {
 		%>
-		<tr>
-			<td><%=answers.getNum()%></td>
-			<td><%=answers.getAns()%></td>
-			<td><%=answers.getCollectAns()%></td>
+	<tbody>
+			<tr class="table table-hover">
+			<td><%=answers.getQuestionNumber()%></td>
+			<td><%=answers.getChoosenAnswer()%></td>
+			<td><%=answers.getAnswer()%></td>
 			<td><%=answers.getJudge()%></td>
 			<td>
 				<form action="/EnglishStudyApp/Result" method="get">
-					<button type="submit" name="actionInResultView"
-						value=<%=answers.getNum()%>>解説を見る</button>
+					<button class="btn btn-primary type="submit" name="actionInResultView"
+						value=<%=answers.getQuestionNumber()%>>解説を見る</button>
 				</form>
 			</td>
-		</tr>
+			</tr>
+		</tbody>
 		<%
 			}
 		%>
 	</table>
+		<%@include file="../common/footer.jsp"%>
+				</div>
+	</div>
 </body>
 </html>

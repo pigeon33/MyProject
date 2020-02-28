@@ -20,8 +20,6 @@ public class ResultDAO {
 
 		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
-		} finally {
-
 		}
 	}
 }

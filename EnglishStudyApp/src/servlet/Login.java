@@ -43,9 +43,6 @@ public class Login extends HttpServlet {
 			return;
 		}
 
-		//何も選択されてないときは説明を表示
-		request.setAttribute("result", "初めての場合は、ユーザ名とパスワードを入力して新規登録ボタンを押してください。");
-
 		//examineeインスタンスの生成
 		Examinees examinee = new Examinees(name, pass);
 
@@ -54,7 +51,7 @@ public class Login extends HttpServlet {
 		LoginLogic loginLogic = new LoginLogic(request, examinee);
 
 		//ログイン処理
-		 str = loginLogic.loginController();
+		str = loginLogic.loginController();
 
 		//examinee情報をセッションスコープに保存
 		HttpSession session = request.getSession(true);
