@@ -12,35 +12,44 @@
 <%@include file="../common/header.jsp"%>
 </head>
 <body>
+	<%@include file="../common/navBar.jsp"%>
 	<div class="container">
 		<div class="jumbotron">
-			<h4>ようこそ<%=loginExaminee.getName()%>さん</h4>
+			<h4>Wellcome <%=loginExaminee.getName()%>!</h4>
 
 			<form action="/EnglishStudyApp/Questions" method="get">
-
-			<p>
-			<select class="form-control" name="TotalQuestionNum">
-				<option value="5">５問</option>
-				<option value="10">１０問</option>
-				<option value="15">１５問</option>
-			</select>
-				<button class="btn btn-primary btn-lg btn-block" type="submit" name="action" value="問題を解く">問題を解く</button>
+				<p>
+				<div style="display: flex;">
+					<select class="form-control input-lg" name="TotalQuestionNum">
+						<option value="5">5 questions</option>
+						<option value="10">10 questions</option>
+						<option value="15">15 questions</option>
+					</select>
+					<button class="btn btn-primary btn-lg btn-block" type="submit"
+						name="action" value="問題を解く">Work Out!</button>
+				</div>
+				</p>
 			</form>
-			</p>
 
 			<form action="/EnglishStudyApp/Ranking" method="get">
 				<p>
-				<button class="btn btn-success btn-lg btn-block" type="submit" name="action" value="履歴を見る"><%=loginExaminee.getName()%>さんの履歴を見る</button>
+					<button class="btn btn-success btn-lg btn-block" type="submit"
+						name="action" value="履歴を見る">show my history
+					</button>
 				</p>
 				<p>
-				<button class="btn btn-info btn-lg btn-block" type="submit" name="action" value="ランキングを見る">ランキングを見る</button>
+					<button class="btn btn-info btn-lg btn-block" type="submit"
+						name="action" value="ランキングを見る">show me Ranking</button>
 				</p>
 			</form>
 
-	<form action="/EnglishStudyApp/Logout" method="get">
-		<p><button class="btn btn-warning btn-lg btn-block" type="submit" name="action">ログアウトする</button><p>
-	</form>
-		<%@include file="../common/footer.jsp"%>
+			<form action="/EnglishStudyApp/Main" method="get">
+				<p>
+					<button class="btn btn-warning btn-lg btn-block" type="submit"
+						name="action" value="Theme1">change Theme</button><p>
+			</form>
+
+			<%@include file="../common/footer.jsp"%>
 		</div>
 	</div>
 </body>

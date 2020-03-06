@@ -33,11 +33,13 @@ public class Logout extends HttpServlet {
 		//セッションスコープを破棄
 		HttpSession session = request.getSession();
 		session.invalidate();
+		System.out.println("Logout:doGet:session"+session);
 
 		//ログアウト画面にフォワード
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/logout.jsp");
-		dispatcher.forward(request,response);
-//		response.sendRedirect("/WEB-INF/jsp/logout.jsp");
+		dispatcher.forward(request, response);
+		/*response.sendRedirect("/WEB-INF/jsp/logout.jsp");*/
 	}
 
 }

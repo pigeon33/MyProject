@@ -5,9 +5,7 @@
 <html>
 <head>
 <%@include file="../WEB-INF/common/header.jsp"%>
-<!-- <style type="text/css">
-.jumbotron { background:url(main.jpg) center no-repeat; background-size: cover;}
-</style> -->
+
 </head>
 <body>
 <div class="container">
@@ -18,10 +16,10 @@
 			<div class="form-group">
 			<div class="mb-3">
 				<input type="text" name="name" class="form-control"
-					placeholder="ユーザ名">
+					placeholder="UserName">
 				</div>
 				 <input type="password" name="pass"
-					class="form-control" placeholder="パスワード">
+					class="form-control" placeholder="Password">
 			</div>
 
 			<div class="center-block">

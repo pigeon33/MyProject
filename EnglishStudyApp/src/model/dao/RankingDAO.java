@@ -33,7 +33,8 @@ public class RankingDAO {
 				examinee.setRankingNumber(ranking);
 				examinee.setName(res.getString("examinee_name"));
 				examinee.setScore(res.getInt("score"));
-				examinee.setTimestamp(res.getTimestamp("recordedtime"));
+				//examinee.setTimestamp(res.getTimestamp("recordedtime"));
+				examinee.setTimestampStr(res.getTimestamp("recordedtime"));
 				examineeList.add(examinee);
 				score = res.getInt("score");
 				i++;
@@ -60,7 +61,8 @@ public class RankingDAO {
 			while (res.next()) {
 				Examinees examinee = new Examinees();
 				examinee.setScore(res.getInt("score"));
-				examinee.setTimestamp(res.getTimestamp("recordedtime"));
+				//examinee.setTimestamp(res.getTimestamp("recordedtime"));
+				examinee.setTimestampStr(res.getTimestamp("recordedtime"));
 				examinendHistory.add(examinee);
 			}
 		} catch (SQLException | ClassNotFoundException e) {

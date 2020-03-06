@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.entity.Examinees;
-
 /**
  * Servlet implementation class Main
  */
@@ -33,17 +31,24 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		//ろぐいんしているか確認するためセッションスコープからユーザ情報を取得
-		HttpSession session = request.getSession();
-		Examinees loginUser = (Examinees) session.getAttribute("loginExaminee");
+		HttpSession session = request.getSession(false);
 
-		if (loginUser == null) {
-			//ログインしてないならログイン画面へ
-			response.sendRedirect("/EnglishStudyApp/");
-		} else {
-			//ログインしているならメイン画面へ
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
-			dispatcher.forward(request, response);
+		//Themeボタンが押された時
+		if ("Theme1".equals(request.getParameter("action"))) {
+
+			if(session.getAttribute("Theme") == null)
+			{
+				session.setAttribute("Theme", 1);
+			}else {
+				session.removeAttribute("Theme");
+			}
 		}
+
+		//ステータスをメインモードに変更
+		session.setAttribute("status", "inMain");
+
+		//ログインしているならメイン画面へ
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
+		dispatcher.forward(request, response);
 	}
 }

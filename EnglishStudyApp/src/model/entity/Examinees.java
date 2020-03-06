@@ -1,6 +1,7 @@
 package model.entity;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Examinees {
 
@@ -10,6 +11,8 @@ public class Examinees {
 	private int Score;
 	private String pass;
 	private Timestamp timestamp;
+	private String timestampStr;
+	private String msg;
 
 
 	public Examinees() {
@@ -36,6 +39,20 @@ public class Examinees {
 	public Timestamp getTimestamp() {return timestamp;}
 	public void setTimestamp(Timestamp timestamp) {this.timestamp = timestamp;}
 
+	public String getTimestampStr() {return timestampStr;}
+	public void setTimestampStr(Timestamp timestamp) {
+		this.timestampStr = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(timestamp);
+		}
+
 	public String getPass() {return pass;}
 	public void setPass(String pass) {	this.pass = pass;}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 }
