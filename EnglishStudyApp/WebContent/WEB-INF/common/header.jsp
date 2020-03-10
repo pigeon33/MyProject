@@ -14,15 +14,30 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 
-<%if(session.getAttribute("Theme")!=null){%>
+<%if(session.getAttribute("Theme")==null){%>
 	<style>
-	<%@include file="bootstrap.min.css"%>
+	<%@include file="../css/bootstrap_cyborg.min.css"%>
 	</style>
-<% }else{%>
+<% }else{
+	int i = (int)session.getAttribute("Theme");
+	switch (i) {
+		case 1:%>
+		<style>
+			<%@include file="../css/bootstrap_sketchy.min.css"%>
+		</style>
+		<%break;
 
-<style>
-<%@include file="bootstrap_sketchy.min.css"%>
-</style>
-<%} %>
+		case 2:%>
+		<style>
+			<%@include file="../css/bootstrap_cyborg.min.css"%>
+		</style>
+
+		<%break;
+		default:%>
+		<style>
+			<%@include file="../css/bootstrap_cosmo.min.css"%>
+		</style>
+		<% }
+		} %>
 
 <title>tyottoeic</title>

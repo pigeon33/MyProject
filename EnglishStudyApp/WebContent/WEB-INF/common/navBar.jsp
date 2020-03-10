@@ -15,7 +15,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<p>メイン画面に戻ると、今までの経過が全て失われますが宜しいでしょうか？</p>
+				<p>メイン画面に戻ると、今まで解いた問題の回答が全て失われますが宜しいでしょうか？</p>
 			</div>
 			<div class="modal-footer">
 				<a class="nav-link" href="/EnglishStudyApp/Main">
@@ -48,19 +48,20 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 
+
 	<% if("inQuestion".equals(status) || "checkAnswer".equals(status)){%>
 		<li class="nav-item active">
 			<a class="nav-link" href="#"data-toggle="modal" data-target="#MODAL1">メイン画面</a>
 		</li>
 		<%} else {%>
 			<li class="nav-item active">
+				<a class="nav-link" href="#" onclick=history.back()>戻る</a>
+			</li>
+
+			<li class="nav-item active">
 				<a class="nav-link" href="/EnglishStudyApp/Main">メイン画面</a>
 			</li>
 		<%} %>
-<!--
-			<li class="nav-item active"><a class="nav-link" href="#"
-				data-toggle="modal" data-target="#MODAL1">メイン画面</a></li>
- -->
 
 			<li class="nav-item active"><a class="nav-link"
 				href="/EnglishStudyApp/Logout">ログアウト <span class="sr-only">(current)</span></a>

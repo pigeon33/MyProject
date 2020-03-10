@@ -21,7 +21,7 @@ public class RankingDAO {
 		try (Connection con = ConnectionManager.getConnection();
 				Statement stmt = con.createStatement();
 				ResultSet res = stmt.executeQuery(
-						" SELECT t1.examinee_name, t2.score, t2.recordedtime FROM m_examinee t1 INNER JOIN m_score t2 ON t1.examinee_id = t2.examinee_id ORDER BY t2.score DESC;")) {
+						"SELECT t1.examinee_name, t2.score, t2.recordedtime, t2.tweet FROM m_examinee t1 INNER JOIN m_score t2 ON t1.examinee_id = t2.examinee_id ORDER BY t2.score DESC;")) {
 
 			int i = 1, ranking = 1, score = 0;
 			// 結果の操作
@@ -33,8 +33,9 @@ public class RankingDAO {
 				examinee.setRankingNumber(ranking);
 				examinee.setName(res.getString("examinee_name"));
 				examinee.setScore(res.getInt("score"));
-				//examinee.setTimestamp(res.getTimestamp("recordedtime"));
 				examinee.setTimestampStr(res.getTimestamp("recordedtime"));
+				examinee.setTweet(res.getString("tweet")==null ? " ":res.getString("tweet"));
+				//examinee.setTweet(res.getString("tweet"));
 				examineeList.add(examinee);
 				score = res.getInt("score");
 				i++;
@@ -61,8 +62,10 @@ public class RankingDAO {
 			while (res.next()) {
 				Examinees examinee = new Examinees();
 				examinee.setScore(res.getInt("score"));
-				//examinee.setTimestamp(res.getTimestamp("recordedtime"));
 				examinee.setTimestampStr(res.getTimestamp("recordedtime"));
+				examinee.setTweet(res.getString("tweet")==null ? " ":res.getString("tweet"));
+				//examinee.setTweet(res.getString("tweet"));
+				//System.out.println("RankingDAO:selectExaminedHistory:res.getString(\"tweet\"):"+res.getString("tweet"));
 				examinendHistory.add(examinee);
 			}
 		} catch (SQLException | ClassNotFoundException e) {

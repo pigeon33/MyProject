@@ -39,8 +39,12 @@ public class Main extends HttpServlet {
 			if(session.getAttribute("Theme") == null)
 			{
 				session.setAttribute("Theme", 1);
+			//
 			}else {
-				session.removeAttribute("Theme");
+				int i = (int) session.getAttribute("Theme");
+				i =  i < 3 ? ++i:  1;
+				System.out.println("Main:doGet:session.getAttribute(\"Theme\")&i:"+session.getAttribute("Theme")+i);
+				session.setAttribute("Theme", i);
 			}
 		}
 

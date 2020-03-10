@@ -40,4 +40,12 @@ public class Result extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		System.out.println("Result:doPost:request.getAttribute(\"comment\")"+request.getAttribute("comment"));
+		//tweetボタン押された時の処理はまだ細かいこと決まってないので、doGetを呼ぶだけ。。。
+		doGet(request,response);
+	}
+
 }

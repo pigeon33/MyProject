@@ -10,15 +10,14 @@
 <body>
 <div class="container">
 	<div class="jumbotron">
-
-		<h3>ちょっＴＯＥＩＣ</h3>
+		<h4>ちょっＴＯＥＩＣ</h4>
 		<form action="/EnglishStudyApp/Login" method="post">
 			<div class="form-group">
-			<div class="mb-3">
+				<div class="mb-3">
 				<input type="text" name="name" class="form-control"
 					placeholder="UserName">
 				</div>
-				 <input type="password" name="pass"
+				<input type="password" name="pass"
 					class="form-control" placeholder="Password">
 			</div>
 
@@ -28,17 +27,11 @@
 			<input type="submit" class="btn btn-primary"
 				name="action" value="新規登録">
 
-			<%
-				if (request.getAttribute("result") != null) {
-			%>
+			<%if (request.getAttribute("result") != null) {	%>
 			<p><%=request.getAttribute("result")%></p>
-			<%
-				} else {
-			%>
+			<%} else {%>
 			<p>初めての場合は、ユーザ名とパスワードを入力して新規登録ボタンを押してください。</p>
-			<%
-				}
-			%>
+			<%}%>
 			</div>
 		</form>
 	</div>

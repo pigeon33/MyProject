@@ -2,6 +2,7 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -9,13 +10,39 @@ import model.entity.Examinees;
 import model.entity.Question;
 
 public class ResultDAO {
-	public void insertExamineeScore(Examinees examinee) {
+
+
+	public int insertExamineeScore(Examinees examinee) {
+
+		String sql = "INSERT INTO m_score (examinee_id,examined_number,score) VALUES (?,(select COUNT(examined_number) AS examined_number from m_score AS temp where examinee_id = ?)+1,?);";
 		try(Connection con = ConnectionManager.getConnection();
-				PreparedStatement pstmt = con.prepareStatement
-				("INSERT INTO m_score (examinee_id,examined_number,score) VALUES (?,(select COUNT(examined_number) AS examined_number from m_score AS temp where examinee_id = ?)+1,?);")){
+			PreparedStatement pstmt = con.prepareStatement(sql,java.sql.Statement.RETURN_GENERATED_KEYS)){
 			pstmt.setInt(1, examinee.getId());
 			pstmt.setInt(2, examinee.getId());
 			pstmt.setInt(3, examinee.getScore());
+			pstmt.executeUpdate();
+
+			// getGeneratedKeys()により、Auto_IncrementされたIDを取得する
+			int autoIncrementKey = 0;
+			ResultSet res = pstmt.getGeneratedKeys();
+			if(res.next()){
+	             autoIncrementKey = res.getInt(1);
+	         }
+
+	         return autoIncrementKey;
+		}catch(SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public void insertExamineeTweet(Examinees examinee) {
+		System.out.println("ResultDAO:insertExamineeTweet:examinee.getLast_insert_id()+examinee.getTweet():"+examinee.getLast_insert_id()+examinee.getTweet());
+		String sql = "UPDATE m_score SET tweet=? where id = ?;";
+		try(Connection con = ConnectionManager.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, examinee.getTweet());
+			pstmt.setInt(2, examinee.getLast_insert_id());
 			pstmt.executeUpdate();
 		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();

@@ -13,6 +13,8 @@ public class Examinees {
 	private Timestamp timestamp;
 	private String timestampStr;
 	private String msg;
+	private String tweet;
+	private int last_insert_id;
 
 
 	public Examinees() {
@@ -53,6 +55,22 @@ public class Examinees {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public String getTweet() {
+		return tweet;
+	}
+
+	public void setTweet(String tweet) {
+		this.tweet = tweet;
+	}
+
+	public int getLast_insert_id() {
+		return last_insert_id;
+	}
+
+	public void setLast_insert_id(int last_insert_id) {
+		this.last_insert_id = last_insert_id;
 	}
 
 }
