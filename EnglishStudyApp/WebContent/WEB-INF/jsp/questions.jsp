@@ -48,7 +48,6 @@
           		<label class="custom-control-label" for="customSwitch1">要チェック</label>
         		</div>
 				<p></p>
-
 				<% if (currentQuestionNum > 0) {%>
 				<button  class="btn btn-primary" type="submit" name="actionInQuestion" value="前の問題">Previous Question</button>
 				<%} else {%>
@@ -57,10 +56,8 @@
 				<button  class="btn btn-primary" type="submit" name="actionInQuestion" value="次の問題">Next Question</button>
 				<%} else {%>
 				<button  class="btn btn-primary" type="submit" name="actionInQuestion" value="次の問題" disabled>Next Question</button>
-				<%	}	%>
+				<% } %>
 				<p></p>
-
-
 				<!-- statusが回答確認モードの場合 -->
 				<%if ("checkAnswer".equals(session.getAttribute("status"))) {%>
 				<p>	選んだ回答:<%=question.getChoosenAnswer()%></p>

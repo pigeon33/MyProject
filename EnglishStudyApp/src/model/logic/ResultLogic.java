@@ -32,7 +32,7 @@ public class ResultLogic {
 			insertScore();
 			//ステータスは回答確認モードに変更
 			this.session.setAttribute("status", "checkAnswer");
-
+			//最初の一回のみtoastを表示する
 			request.setAttribute("InitialActionInResultView", true);
 		}
 
@@ -43,8 +43,8 @@ public class ResultLogic {
 			return "/Questions";
 		}
 
-		//テキストボックス内のメッセージを初期化。間にスペースが入るとダメ？
-		request.setAttribute("placeholderFoTweet","４０文字以内のメッセージを点数と一緒に残すことが出来ます");
+		//テキストボックス内のメッセージを初期化。
+		request.setAttribute("placeholderFoTweet","４０文字以内のメッセージを点数と一緒に残すことが出来ます。　未入力でもＯＫです。");
 
 
 		//”tweet”が押された時の処理

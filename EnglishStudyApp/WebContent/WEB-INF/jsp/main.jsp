@@ -26,7 +26,9 @@
 						<option value="15">15 questions</option>
 					</select>
 					<button class="btn btn-primary btn-lg btn-block" type="submit"
-						name="action" value="問題を解く">Work Out!</button>
+						name="action" value="問題を解く">Work Out!
+						<i class="fas fa-dumbbell"></i>
+						</button>
 				</div>
 				</p>
 			</form>
@@ -35,18 +37,23 @@
 				<p>
 					<button class="btn btn-success btn-lg btn-block" type="submit"
 						name="action" value="履歴を見る">show my history
+						<i class="fas fa-list-ol"></i>
 					</button>
 				</p>
 				<p>
 					<button class="btn btn-info btn-lg btn-block" type="submit"
-						name="action" value="ランキングを見る">show me Ranking</button>
+						name="action" value="ランキングを見る">show me Ranking
+						<i class="fas fa-crown"></i>
+						</button>
 				</p>
 			</form>
 
 			<form action="/EnglishStudyApp/Main" method="get">
 				<p>
 					<button class="btn btn-warning btn-lg btn-block" type="submit"
-						name="action" value="Theme1">change Theme</button><p>
+						name="action" value="Theme1">change Theme
+						<i class="fas fa-person-booth"></i>
+						</button><p>
 			</form>
 
 			<%@include file="../common/footer.jsp"%>

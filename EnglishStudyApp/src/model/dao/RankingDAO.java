@@ -64,8 +64,6 @@ public class RankingDAO {
 				examinee.setScore(res.getInt("score"));
 				examinee.setTimestampStr(res.getTimestamp("recordedtime"));
 				examinee.setTweet(res.getString("tweet")==null ? " ":res.getString("tweet"));
-				//examinee.setTweet(res.getString("tweet"));
-				//System.out.println("RankingDAO:selectExaminedHistory:res.getString(\"tweet\"):"+res.getString("tweet"));
 				examinendHistory.add(examinee);
 			}
 		} catch (SQLException | ClassNotFoundException e) {

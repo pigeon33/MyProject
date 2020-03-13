@@ -14,12 +14,13 @@ public class ResultDAO {
 
 	public int insertExamineeScore(Examinees examinee) {
 
-		String sql = "INSERT INTO m_score (examinee_id,examined_number,score) VALUES (?,(select COUNT(examined_number) AS examined_number from m_score AS temp where examinee_id = ?)+1,?);";
+		/*String sql = "INSERT INTO m_score (examinee_id,examined_number,score) VALUES (?,(select COUNT(examined_number) AS examined_number from m_score AS temp where examinee_id = ?)+1,?);";*/
+		String sql = "INSERT INTO m_score (examinee_id,score) VALUES(?,?);";
 		try(Connection con = ConnectionManager.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql,java.sql.Statement.RETURN_GENERATED_KEYS)){
 			pstmt.setInt(1, examinee.getId());
-			pstmt.setInt(2, examinee.getId());
-			pstmt.setInt(3, examinee.getScore());
+			/*pstmt.setInt(2, examinee.getId());*/
+			pstmt.setInt(2, examinee.getScore());
 			pstmt.executeUpdate();
 
 			// getGeneratedKeys()により、Auto_IncrementされたIDを取得する
@@ -37,7 +38,6 @@ public class ResultDAO {
 	}
 
 	public void insertExamineeTweet(Examinees examinee) {
-		System.out.println("ResultDAO:insertExamineeTweet:examinee.getLast_insert_id()+examinee.getTweet():"+examinee.getLast_insert_id()+examinee.getTweet());
 		String sql = "UPDATE m_score SET tweet=? where id = ?;";
 		try(Connection con = ConnectionManager.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql)){
