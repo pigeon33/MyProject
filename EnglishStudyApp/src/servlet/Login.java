@@ -60,9 +60,4 @@ public class Login extends HttpServlet {
 		dispatcher = request.getRequestDispatcher(str);
 		dispatcher.forward(request, response);
 	}
-
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
 }

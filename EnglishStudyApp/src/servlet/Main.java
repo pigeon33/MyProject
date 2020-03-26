@@ -35,15 +35,11 @@ public class Main extends HttpServlet {
 
 		//Themeボタンが押された時
 		if ("Theme1".equals(request.getParameter("action"))) {
-
 			if(session.getAttribute("Theme") == null)
+			{session.setAttribute("Theme", 3);}else
 			{
-				session.setAttribute("Theme", 1);
-			//
-			}else {
 				int i = (int) session.getAttribute("Theme");
 				i =  i < 3 ? ++i:  1;
-				System.out.println("Main:doGet:session.getAttribute(\"Theme\")&i:"+session.getAttribute("Theme")+i);
 				session.setAttribute("Theme", i);
 			}
 		}
